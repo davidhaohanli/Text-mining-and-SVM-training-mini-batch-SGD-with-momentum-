@@ -70,7 +70,7 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow
     train_pred = lr.predict(train_data)
     print('Logistic Regression train accuracy - {} = {}\n'.format(feature_extraction, (train_pred == train_labels).mean()))
     test_pred = lr.predict(test_data)
-    print('Logistic Regression train accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    print('Logistic Regression test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
 
     return lr
 
@@ -84,9 +84,9 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
 
     # evaluate the logistic regression model
     train_pred = SVM.predict(train_data)
-    print('SVM Regression train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
+    print('SVM train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = SVM.predict(test_data)
-    print('SVM Regression train accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    print('SVM test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
 
     return SVM
 
@@ -98,13 +98,14 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
     # hyper-param tuning
     # evaluate the logistic regression model
     train_pred = knn.predict(train_data)
-    print('KNN Regression train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
+    print('KNN train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = knn.predict(test_data)
-    print('KNN Regression train accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    print('KNN test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
 
     return knn
 
 def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+    #TODO too slow
     gnb = GaussianNB();
     gnb.fit(train_data, train_labels)
 
@@ -112,9 +113,9 @@ def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
     # hyper-param tuning
     # evaluate the logistic regression model
     train_pred = gnb.predict(train_data)
-    print('Logistic Regression train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
+    print('Gaussian Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = gnb.predict(test_data)
-    print('Logistic Regression train accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    print('Gaussian Naive Bayes test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
 
     return gnb
 
