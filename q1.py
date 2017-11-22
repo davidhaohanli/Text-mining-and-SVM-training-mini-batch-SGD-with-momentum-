@@ -12,6 +12,7 @@ from sklearn.naive_bayes import BernoulliNB
 from sklearn.linear_model import LogisticRegression
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 
 def load_data():
     # import and filter data
@@ -75,7 +76,7 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow
 
 def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
 
-    SVM = svm.LinearSVC()
+    SVM = svm.SVC(kernel='linear')
     SVM.fit(train_data, train_labels)
 
     # TODO
@@ -88,6 +89,20 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
     print('SVM Regression train accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
 
     return SVM
+
+def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+    knn = KNeighborsClassifier(n_neighbors=10);
+    knn.fit(train_data, train_labels)
+
+    # TODO
+    # hyper-param tuning
+    # evaluate the logistic regression model
+    train_pred = knn.predict(train_data)
+    print('KNN Regression train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
+    test_pred = knn.predict(test_data)
+    print('KNN Regression train accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+
+    return knn
 
 def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
     gnb = GaussianNB();
@@ -119,11 +134,13 @@ if __name__ == '__main__':
     #print (feature_names.shape)
     bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target,'tf-idf')
     lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+
+    svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
 
     #TODO
-    #svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+
     train_dense = train_tfidf.todense();
     test_dense = test_tfidf.todense();
-
-    gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target,'tf-idf')
+    #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target,'tf-idf')
 
