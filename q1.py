@@ -59,9 +59,9 @@ if __name__ == '__main__':
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
 
     bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target)
-    '''
-    train_bow, test_bow, feature_names = tf_idf_features(train_data, test_data)
+
+    train_tfidf, test_tfidf, feature_names = tf_idf_features(train_data, test_data)
     #print (train_bow.toarray().shape)
     #print (feature_names.shape)
-    bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target,'tf-idf')
-    '''
+    bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target,'tf-idf')
+
