@@ -37,7 +37,7 @@ def tf_idf_features(train_data, test_data):
     tf_idf_test = tf_idf_vectorize.transform(test_data.data)
     return tf_idf_train, tf_idf_test, feature_names
 
-def bnb_baseline(bow_train, train_labels, bow_test, test_labels):
+def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extraction='bow'):
     # training the baseline model
     binary_train = (bow_train>0).astype(int)
     binary_test = (bow_test>0).astype(int)
@@ -47,14 +47,21 @@ def bnb_baseline(bow_train, train_labels, bow_test, test_labels):
 
     #evaluate the baseline model
     train_pred = model.predict(binary_train)
-    print('BernoulliNB baseline train accuracy = {}'.format((train_pred == train_labels).mean()))
+    print('BernoulliNB baseline train accuracy - {} = {}'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = model.predict(binary_test)
-    print('BernoulliNB baseline test accuracy = {}'.format((test_pred == test_labels).mean()))
+    print('BernoulliNB baseline test accuracy - {} = {}'.format(feature_extraction,(test_pred == test_labels).mean()))
 
     return model
 
 if __name__ == '__main__':
     train_data, test_data = load_data()
+    #print (set(train_data.target))
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
 
     bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target)
+    '''
+    train_bow, test_bow, feature_names = tf_idf_features(train_data, test_data)
+    #print (train_bow.toarray().shape)
+    #print (feature_names.shape)
+    bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target,'tf-idf')
+    '''
