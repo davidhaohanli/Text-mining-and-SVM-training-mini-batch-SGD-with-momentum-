@@ -43,7 +43,7 @@ def tf_idf_features(train_data, test_data):
     tf_idf_test = tf_idf_vectorize.transform(test_data)
     return tf_idf_train, tf_idf_test#, feature_names
 
-def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extraction='bow'):
+def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extraction='TF-IDF'):
     # training the baseline model
     #binary_train = (bow_train>0).astype(int)
     #binary_test = (bow_test>0).astype(int)
@@ -81,7 +81,7 @@ def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extracti
 
     return bnb
 
-def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
     lr=LogisticRegression()
 
@@ -103,7 +103,7 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow
 
     return lr
 
-def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
     SVM = svm.SVC(kernel='linear')
     SVM.fit(train_data, train_labels)
@@ -119,7 +119,7 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
 
     return SVM
 
-def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
     knn = KNeighborsClassifier(n_neighbors=10);
     knn.fit(train_data, train_labels)
 
@@ -133,7 +133,7 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
 
     return knn
 
-def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
     dt = DecisionTreeClassifier();
     dt.fit(train_data, train_labels)
@@ -148,7 +148,7 @@ def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow
 
     return dt
 
-def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
     mnb = MultinomialNB();
     mnb.fit(train_data, train_labels)
 
@@ -162,7 +162,7 @@ def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
 
     return mnb
 
-def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
     #TODO too slow
     gnb = GaussianNB();
     gnb.fit(train_data, train_labels)
@@ -177,7 +177,7 @@ def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
 
     return gnb
 
-def dnn(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+def dnn(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
     #TODO
     pass
 
@@ -191,12 +191,12 @@ if __name__ == '__main__':
     train_tfidf, test_tfidf = tf_idf_features(train_bow, test_bow)
     #print (train_bow.toarray().shape)
     #print (feature_names.shape)
-    bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target,'tf-idf')
+    bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target)
 
     #chosen models
-    lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-    mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target, 'tf-idf')
-    svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
+    svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
 
     #not good models
     #knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
