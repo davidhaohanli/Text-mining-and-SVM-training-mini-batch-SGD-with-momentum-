@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fc6be6bc-4197-4676-9842-5d424a25d238" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/q1.py" afterPath="$PROJECT_DIR$/q1.py" />
     </list>
     <ignored path="csc411assignment3.iws" />
@@ -38,20 +37,20 @@
       <file leaf-file-name="q1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/q1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="178" column="28" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="28" />
+            <state relative-caret-position="330">
+              <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
               <folding>
-                <element signature="e#526#790#0" expanded="false" />
-                <element signature="e#837#1451#0" expanded="false" />
-                <element signature="e#1501#1827#0" expanded="false" />
-                <element signature="e#1924#2495#0" expanded="false" />
-                <element signature="e#2586#3068#0" expanded="false" />
-                <element signature="e#3160#3619#0" expanded="false" />
-                <element signature="e#3710#4181#0" expanded="false" />
-                <element signature="e#4272#4746#0" expanded="false" />
-                <element signature="e#4837#5346#0" expanded="false" />
-                <element signature="e#5437#5937#0" expanded="false" />
-                <element signature="e#6024#6038#0" expanded="false" />
+                <element signature="e#610#1028#0" expanded="false" />
+                <element signature="e#1051#1315#0" expanded="false" />
+                <element signature="e#1362#1996#0" expanded="false" />
+                <element signature="e#2046#2392#0" expanded="false" />
+                <element signature="e#3313#3795#0" expanded="false" />
+                <element signature="e#3887#4346#0" expanded="false" />
+                <element signature="e#4437#4908#0" expanded="false" />
+                <element signature="e#4999#5473#0" expanded="false" />
+                <element signature="e#5564#6054#0" expanded="false" />
+                <element signature="e#6145#6645#0" expanded="false" />
+                <element signature="e#6732#6746#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -99,7 +98,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -120,6 +118,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -129,21 +128,25 @@
     <property name="FullScreen" value="true" />
   </component>
   <component name="RunManager" selected="Python.q1">
-    <configuration default="false" name="q1" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="Nosetests in csc411assignment3" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
+      <envs />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="csc411assignment3" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/q1.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="$PROJECT_DIR$" />
+      <option name="TEST_TYPE" value="TEST_FOLDER" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -280,12 +283,30 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="q1" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="csc411assignment3" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/q1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Python.q1" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in csc411assignment3" />
     </list>
     <recent_temporary>
       <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.q1" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetests in csc411assignment3" />
       </list>
     </recent_temporary>
   </component>
@@ -310,6 +331,11 @@
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Nosetests_in_csc411assignment3 - 2017.11.23 at 09h 54m 02s.xml">
+      <configuration name="Nosetests in csc411assignment3" configurationId="tests" />
+    </history-entry>
+  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -321,12 +347,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17899929" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.026779423" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.49753347" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3313253" sideWeight="0.50528544" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27951807" sideWeight="0.46054518" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28433734" sideWeight="0.4947146" order="7" side_tool="false" content_ui="tabs" />
@@ -334,7 +360,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21445782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27951807" sideWeight="0.5394548" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -363,13 +389,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/q1.py</url>
-          <line>169</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/q1.py</url>
-          <line>173</line>
-          <option name="timeStamp" value="10" />
+          <line>188</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -382,11 +403,48 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="19" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="In.__len__()" />
+        <watch expression="In[0]" />
+        <watch expression="__py_debug_temp_var_2036533244" />
+        <watch expression="__py_debug_temp_var_2036533244" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/q2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/q1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#610#1028#0" expanded="false" />
+            <element signature="e#1051#1315#0" expanded="false" />
+            <element signature="e#1362#1996#0" expanded="false" />
+            <element signature="e#2046#2392#0" expanded="false" />
+            <element signature="e#3313#3795#0" expanded="false" />
+            <element signature="e#3887#4346#0" expanded="false" />
+            <element signature="e#4437#4908#0" expanded="false" />
+            <element signature="e#4999#5473#0" expanded="false" />
+            <element signature="e#5564#6054#0" expanded="false" />
+            <element signature="e#6145#6645#0" expanded="false" />
+            <element signature="e#6732#6746#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/q2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -402,17 +460,17 @@
         <state relative-caret-position="330">
           <caret line="106" column="84" selection-start-line="106" selection-start-column="84" selection-end-line="106" selection-end-column="84" />
           <folding>
-            <element signature="e#526#790#0" expanded="false" />
-            <element signature="e#837#1451#0" expanded="false" />
-            <element signature="e#1501#1827#0" expanded="false" />
-            <element signature="e#1924#2495#0" expanded="false" />
-            <element signature="e#2586#3068#0" expanded="false" />
-            <element signature="e#3160#3619#0" expanded="false" />
-            <element signature="e#3710#4181#0" expanded="false" />
-            <element signature="e#4272#4746#0" expanded="false" />
-            <element signature="e#4837#5346#0" expanded="false" />
-            <element signature="e#5437#5937#0" expanded="false" />
-            <element signature="e#6024#6038#0" expanded="false" />
+            <element signature="e#610#1028#0" expanded="false" />
+            <element signature="e#1051#1315#0" expanded="false" />
+            <element signature="e#1362#1996#0" expanded="false" />
+            <element signature="e#2046#2392#0" expanded="false" />
+            <element signature="e#3313#3795#0" expanded="false" />
+            <element signature="e#3887#4346#0" expanded="false" />
+            <element signature="e#4437#4908#0" expanded="false" />
+            <element signature="e#4999#5473#0" expanded="false" />
+            <element signature="e#5564#6054#0" expanded="false" />
+            <element signature="e#6145#6645#0" expanded="false" />
+            <element signature="e#6732#6746#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -422,17 +480,17 @@
         <state relative-caret-position="1875">
           <caret line="125" column="38" selection-start-line="125" selection-start-column="38" selection-end-line="125" selection-end-column="38" />
           <folding>
-            <element signature="e#526#790#0" expanded="false" />
-            <element signature="e#837#1451#0" expanded="false" />
-            <element signature="e#1501#1827#0" expanded="false" />
-            <element signature="e#1924#2495#0" expanded="false" />
-            <element signature="e#2586#3068#0" expanded="false" />
-            <element signature="e#3160#3619#0" expanded="false" />
-            <element signature="e#3710#4181#0" expanded="false" />
-            <element signature="e#4272#4746#0" expanded="false" />
-            <element signature="e#4837#5346#0" expanded="false" />
-            <element signature="e#5437#5937#0" expanded="false" />
-            <element signature="e#6024#6038#0" expanded="false" />
+            <element signature="e#610#1028#0" expanded="false" />
+            <element signature="e#1051#1315#0" expanded="false" />
+            <element signature="e#1362#1996#0" expanded="false" />
+            <element signature="e#2046#2392#0" expanded="false" />
+            <element signature="e#3313#3795#0" expanded="false" />
+            <element signature="e#3887#4346#0" expanded="false" />
+            <element signature="e#4437#4908#0" expanded="false" />
+            <element signature="e#4999#5473#0" expanded="false" />
+            <element signature="e#5564#6054#0" expanded="false" />
+            <element signature="e#6145#6645#0" expanded="false" />
+            <element signature="e#6732#6746#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -568,20 +626,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/q1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="178" column="28" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="28" />
+        <state relative-caret-position="330">
+          <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
           <folding>
-            <element signature="e#526#790#0" expanded="false" />
-            <element signature="e#837#1451#0" expanded="false" />
-            <element signature="e#1501#1827#0" expanded="false" />
-            <element signature="e#1924#2495#0" expanded="false" />
-            <element signature="e#2586#3068#0" expanded="false" />
-            <element signature="e#3160#3619#0" expanded="false" />
-            <element signature="e#3710#4181#0" expanded="false" />
-            <element signature="e#4272#4746#0" expanded="false" />
-            <element signature="e#4837#5346#0" expanded="false" />
-            <element signature="e#5437#5937#0" expanded="false" />
-            <element signature="e#6024#6038#0" expanded="false" />
+            <element signature="e#610#1028#0" expanded="false" />
+            <element signature="e#1051#1315#0" expanded="false" />
+            <element signature="e#1362#1996#0" expanded="false" />
+            <element signature="e#2046#2392#0" expanded="false" />
+            <element signature="e#3313#3795#0" expanded="false" />
+            <element signature="e#3887#4346#0" expanded="false" />
+            <element signature="e#4437#4908#0" expanded="false" />
+            <element signature="e#4999#5473#0" expanded="false" />
+            <element signature="e#5564#6054#0" expanded="false" />
+            <element signature="e#6145#6645#0" expanded="false" />
+            <element signature="e#6732#6746#0" expanded="false" />
           </folding>
         </state>
       </provider>

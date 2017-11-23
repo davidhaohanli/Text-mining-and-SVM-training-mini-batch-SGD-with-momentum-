@@ -15,6 +15,20 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import KFold
+
+def cross_validation(model,train_data,train_labels,k=10):
+
+    mean_train_loss=0;
+    mean_test_loss=0
+    kf=KFold(n_splits=k)
+    for train_ind,test_ind in kf.split(train_data):
+        x_train,x_test=train_data[train_ind],train_data[test_ind];
+        y_train,y_test=train_labels[train_ind],train_labels[test_ind];
+        model.fit(x_train,y_train)
+        test_pred = model.predict(x_test)
+        mean_test_loss+=(test_pred == y_test).mean()
+    return mean_test_loss/k,model
 
 def load_data():
     # import and filter data
@@ -33,7 +47,7 @@ def bow_features(train_data, test_data):
     print('{} train data points.'.format(shape[0]))
     print('{} feature dimension.'.format(shape[1]))
     print('Most common word in training set is "{}"'.format(feature_names[bow_train.sum(axis=0).argmax()]))
-    return bow_train, bow_test, feature_names
+    return bow_train.todense(), bow_test.todense(), feature_names
 
 def tf_idf_features(train_data, test_data):
     # tf-idf representation
@@ -41,23 +55,28 @@ def tf_idf_features(train_data, test_data):
     tf_idf_train = tf_idf_vectorize.fit_transform(train_data) #bag-of-word features for input
     #feature_names = tf_idf_vectorize.get_feature_names()
     tf_idf_test = tf_idf_vectorize.transform(test_data)
-    return tf_idf_train, tf_idf_test#, feature_names
+    return tf_idf_train.todense(), tf_idf_test.todense()#, feature_names
 
 def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extraction='bow'):
     # training the baseline model
-    binary_train = (bow_train>0).astype(int)
-    binary_test = (bow_test>0).astype(int)
+    #binary_train = (bow_train>0).astype(int)
+    #binary_test = (bow_test>0).astype(int)
+    model_loss=float('inf')
+    for i in range(0,100,10):
+        mean_loss,model=cross_validation(BernoulliNB(binarize=i),bow_train,train_labels)
+        if mean_loss < model_loss:
+            bnb=model
 
-    model = BernoulliNB()
-    model.fit(binary_train, train_labels)
+    print ('\nBest hyper-parameter for the model - {} is {}'.format('binarize',model.binarize))
 
+    bnb.fit(bow_train, train_labels)
     #evaluate the baseline model
-    train_pred = model.predict(binary_train)
+    train_pred = bnb.predict(bow_train)
     print('BernoulliNB baseline train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
-    test_pred = model.predict(binary_test)
+    test_pred = bnb.predict(bow_test)
     print('BernoulliNB baseline test accuracy - {} = {}\n'.format(feature_extraction,(test_pred == test_labels).mean()))
 
-    return model
+    return bnb
 
 def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
 
@@ -122,7 +141,6 @@ def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow
     return dt
 
 def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
-    #TODO too slow
     mnb = MultinomialNB();
     mnb.fit(train_data, train_labels)
 
@@ -166,16 +184,18 @@ if __name__ == '__main__':
     #print (train_bow.toarray().shape)
     #print (feature_names.shape)
     bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target,'tf-idf')
+
+    #chosen models
     mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target, 'tf-idf')
     lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-    #knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-    dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-
     svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
 
-    #TODO
+    #not good models
+    '''
+    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    '''
 
-    train_dense = train_tfidf.todense();
-    test_dense = test_tfidf.todense();
+    #TODO
     #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target,'tf-idf')
 
