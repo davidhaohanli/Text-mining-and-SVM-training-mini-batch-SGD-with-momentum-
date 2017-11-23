@@ -13,6 +13,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import MultinomialNB
 
 def load_data():
     # import and filter data
@@ -104,6 +106,36 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='bo
 
     return knn
 
+def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+
+    dt = DecisionTreeClassifier();
+    dt.fit(train_data, train_labels)
+
+    # TODO
+    # hyper-param tuning
+    # evaluate the logistic regression model
+    train_pred = dt.predict(train_data)
+    print('Decision Tree train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
+    test_pred = dt.predict(test_data)
+    print('Decision Tree test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+
+    return dt
+
+def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
+    #TODO too slow
+    mnb = MultinomialNB();
+    mnb.fit(train_data, train_labels)
+
+    # TODO
+    # hyper-param tuning
+    # evaluate the logistic regression model
+    train_pred = mnb.predict(train_data)
+    print('Multinomial Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
+    test_pred = mnb.predict(test_data)
+    print('Multinomial Naive Bayes test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+
+    return mnb
+
 def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='bow'):
     #TODO too slow
     gnb = GaussianNB();
@@ -134,8 +166,10 @@ if __name__ == '__main__':
     #print (train_bow.toarray().shape)
     #print (feature_names.shape)
     bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target,'tf-idf')
+    mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target, 'tf-idf')
     lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    #knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
 
     svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
 
