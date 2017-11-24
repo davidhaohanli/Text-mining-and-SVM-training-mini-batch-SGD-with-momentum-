@@ -50,13 +50,13 @@ def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extracti
 
     bnb=BernoulliNB()
 
-    bin_range=range(0,10)
-    param_grid=dict(binarize=bin_range)
+    alpha_range=np.geomspace(1e-5,1,10)
+    param_grid=dict(alpha=alpha_range)
     #TODO set n_jobs if parallel comp wanted
     grid=GridSearchCV(bnb,param_grid,cv=10,scoring='accuracy')
     grid.fit(bow_train,train_labels)
     print('\nThe best hyper-parameter for {} -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n'\
-          .format('BernoulliNB','Binarize',grid.best_params_,grid.best_score_))
+          .format('BernoulliNB','alpha',grid.best_params_,grid.best_score_))
 
     #old
     '''
@@ -85,7 +85,7 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
 
     lr=LogisticRegression()
 
-    c_range = np.arange(2,0.1,-0.1)
+    c_range = np.arange(0.1,3,0.1)
     param_grid = dict(C=c_range)
     grid = RandomizedSearchCV(lr, param_grid, cv=10, scoring='accuracy', n_iter=10, random_state=5)
     grid.fit(train_data, train_labels)
@@ -120,12 +120,20 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     return SVM
 
 def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
+    knn = KNeighborsClassifier()
+
+    k_range = range(1, 100)
+    param_grid = dict(n_neighbors=k_range)
+    grid = RandomizedSearchCV(knn, param_grid, cv=10, scoring='accuracy', n_iter=10, random_state=5)
+    grid.fit(train_data, train_labels)
+    # TODO set n_jobs if parallel comp wanted
+    print('\nThe best hyper-parameter for {} -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
+          .format('logistic regression', 'C', grid.best_params_, grid.best_score_))
+
+    lr = grid.best_estimator_
     knn = KNeighborsClassifier(n_neighbors=10);
     knn.fit(train_data, train_labels)
 
-    # TODO
-    # hyper-param tuning
-    # evaluate the logistic regression model
     train_pred = knn.predict(train_data)
     print('KNN train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = knn.predict(test_data)
@@ -186,7 +194,7 @@ if __name__ == '__main__':
     #print (set(train_data.target))
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
 
-    bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target)
+    bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target,'bow')
 
     train_tfidf, test_tfidf = tf_idf_features(train_bow, test_bow)
     #print (train_bow.toarray().shape)
@@ -195,11 +203,11 @@ if __name__ == '__main__':
 
     #chosen models
     lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
-    mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
-    svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    #mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
+    #svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
 
     #not good models
-    #knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
+    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
     #dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
 
     #gnb too slow
