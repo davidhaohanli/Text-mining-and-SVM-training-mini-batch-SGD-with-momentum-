@@ -38,34 +38,26 @@
       <file leaf-file-name="q1.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/q1.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+            <state relative-caret-position="-1341">
+              <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
               <folding>
                 <element signature="e#614#878#0" expanded="false" />
                 <element signature="e#925#1541#0" expanded="false" />
                 <element signature="e#1591#1917#0" expanded="false" />
-                <element signature="e#2017#3433#0" expanded="false" />
-                <element signature="e#4507#4966#0" expanded="false" />
-                <element signature="e#6153#6627#0" expanded="false" />
-                <element signature="e#6721#7211#0" expanded="false" />
-                <element signature="e#7305#7805#0" expanded="false" />
-                <element signature="e#7895#7909#0" expanded="false" />
+                <element signature="e#2017#2976#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/base.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="855">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -73,6 +65,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/debugger_console_test.py" />
         <option value="$PROJECT_DIR$/q1.py" />
       </list>
     </option>
@@ -106,8 +99,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -128,6 +119,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -136,7 +129,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="true" />
   </component>
-  <component name="RunManager" selected="Python.q1">
+  <component name="RunManager" selected="Python.debugger_console_test">
     <configuration default="false" name="Nosetests in csc411assignment3" type="tests" factoryName="Nosetests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -156,6 +149,23 @@
       <option name="USE_PATTERN" value="false" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="debugger_console_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="csc411assignment3" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debugger_console_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -309,13 +319,15 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Python.q1" />
       <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in csc411assignment3" />
+      <item index="2" class="java.lang.String" itemvalue="Python.debugger_console_test" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Nosetests in csc411assignment3" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Python.debugger_console_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Nosetests in csc411assignment3" />
       </list>
     </recent_temporary>
   </component>
@@ -364,18 +376,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27951807" sideWeight="0.46054518" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28433734" sideWeight="0.4947146" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25662652" sideWeight="0.49753347" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21445782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21445782" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27951807" sideWeight="0.5394548" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25662652" sideWeight="0.49753347" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27951807" sideWeight="0.5394548" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -398,7 +410,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/q1.py</url>
-          <line>207</line>
+          <line>201</line>
           <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
@@ -442,21 +454,8 @@
             <element signature="e#614#878#0" expanded="false" />
             <element signature="e#925#1541#0" expanded="false" />
             <element signature="e#1591#1917#0" expanded="false" />
-            <element signature="e#2017#3433#0" expanded="false" />
-            <element signature="e#4507#4966#0" expanded="false" />
-            <element signature="e#6153#6627#0" expanded="false" />
-            <element signature="e#6721#7211#0" expanded="false" />
-            <element signature="e#7305#7805#0" expanded="false" />
-            <element signature="e#7895#7909#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -478,12 +477,67 @@
             <element signature="e#614#878#0" expanded="false" />
             <element signature="e#925#1541#0" expanded="false" />
             <element signature="e#1591#1917#0" expanded="false" />
-            <element signature="e#2017#3433#0" expanded="false" />
-            <element signature="e#4507#4966#0" expanded="false" />
-            <element signature="e#6153#6627#0" expanded="false" />
-            <element signature="e#6721#7211#0" expanded="false" />
-            <element signature="e#7305#7805#0" expanded="false" />
-            <element signature="e#7895#7909#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/q2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/q1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#614#878#0" expanded="false" />
+            <element signature="e#925#1541#0" expanded="false" />
+            <element signature="e#1591#1917#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/q2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/q1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#614#878#0" expanded="false" />
+            <element signature="e#925#1541#0" expanded="false" />
+            <element signature="e#1591#1917#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -506,12 +560,7 @@
             <element signature="e#614#878#0" expanded="false" />
             <element signature="e#925#1541#0" expanded="false" />
             <element signature="e#1591#1917#0" expanded="false" />
-            <element signature="e#2017#3433#0" expanded="false" />
-            <element signature="e#4507#4966#0" expanded="false" />
-            <element signature="e#6153#6627#0" expanded="false" />
-            <element signature="e#6721#7211#0" expanded="false" />
-            <element signature="e#7305#7805#0" expanded="false" />
-            <element signature="e#7895#7909#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -524,12 +573,7 @@
             <element signature="e#614#878#0" expanded="false" />
             <element signature="e#925#1541#0" expanded="false" />
             <element signature="e#1591#1917#0" expanded="false" />
-            <element signature="e#2017#3433#0" expanded="false" />
-            <element signature="e#4507#4966#0" expanded="false" />
-            <element signature="e#6153#6627#0" expanded="false" />
-            <element signature="e#6721#7211#0" expanded="false" />
-            <element signature="e#7305#7805#0" expanded="false" />
-            <element signature="e#7895#7909#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -653,6 +697,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="855">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/debugger_console_test.py" />
+    <entry file="file://$PROJECT_DIR$/q1 (2).py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/q2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -663,28 +723,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda/lib/python3.6/site-packages/sklearn/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/q1.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="131" column="0" selection-start-line="131" selection-start-column="0" selection-end-line="131" selection-end-column="0" />
+        <state relative-caret-position="-1341">
+          <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
           <folding>
             <element signature="e#614#878#0" expanded="false" />
             <element signature="e#925#1541#0" expanded="false" />
             <element signature="e#1591#1917#0" expanded="false" />
-            <element signature="e#2017#3433#0" expanded="false" />
-            <element signature="e#4507#4966#0" expanded="false" />
-            <element signature="e#6153#6627#0" expanded="false" />
-            <element signature="e#6721#7211#0" expanded="false" />
-            <element signature="e#7305#7805#0" expanded="false" />
-            <element signature="e#7895#7909#0" expanded="false" />
+            <element signature="e#2017#2976#0" expanded="false" />
           </folding>
         </state>
       </provider>

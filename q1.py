@@ -52,24 +52,10 @@ def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extracti
 
     alpha_range=np.geomspace(1e-5,1,10)
     param_grid=dict(alpha=alpha_range)
-    #TODO set n_jobs if parallel comp wanted
-    grid=GridSearchCV(bnb,param_grid,cv=10,scoring='accuracy')
+    grid=GridSearchCV(bnb,param_grid,cv=10,scoring='accuracy',n_jobs=-1)
     grid.fit(bow_train,train_labels)
-    print('\nThe best hyper-parameter for {} -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n'\
-          .format('BernoulliNB','alpha',grid.best_params_,grid.best_score_))
-
-    #old
-    '''
-    model_accuracy=float('-inf')
-    for i in range(0,50,5):
-        model=BernoulliNB(binarize=i)
-        mean_accuracy=cross_val_score(model,bow_train,train_labels,cv=10).mean()
-        if mean_accuracy > model_accuracy:
-            model_accuracy=mean_accuracy
-            bnb=model
-
-    print ('\nBest hyper-parameter for the model --- {} is {}\n'.format('binarize',bnb.binarize))
-    '''
+    print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n'\
+          .format('BernoulliNB',grid.best_params_,grid.best_score_))
 
     bnb=grid.best_estimator_
     bnb.fit(bow_train, train_labels)
@@ -87,11 +73,10 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
 
     c_range = np.arange(0.1,3,0.1)
     param_grid = dict(C=c_range)
-    grid = RandomizedSearchCV(lr, param_grid, cv=10, scoring='accuracy', n_iter=10, random_state=5)
+    grid = RandomizedSearchCV(lr, param_grid, cv=10, scoring='accuracy', n_iter=10, random_state=5,n_jobs=-1)
     grid.fit(train_data, train_labels)
-    # TODO set n_jobs if parallel comp wanted
-    print('\nThe best hyper-parameter for {} -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
-        .format('logistic regression','C', grid.best_params_, grid.best_score_))
+    print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
+        .format('logistic regression', grid.best_params_, grid.best_score_))
 
     lr=grid.best_estimator_
     lr.fit(train_data,train_labels)
@@ -106,6 +91,16 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
 def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
     SVM = svm.SVC(kernel='linear')
+
+    c_range = np.arange(0.01, 2.01, 0.2)
+    param_grid = dict(C=c_range)
+    grid = GridSearchCV(SVM, param_grid, cv=10, scoring='accuracy', n_jobs=-1)
+    grid.fit(train_data, train_labels)
+    print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
+          .format('SVM', grid.best_params_, grid.best_score_))
+
+    SVM=grid.best_estimator_
+
     SVM.fit(train_data, train_labels)
 
     # TODO
@@ -124,11 +119,10 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
 
     k_range = range(1, 100)
     param_grid = dict(n_neighbors=k_range)
-    grid = RandomizedSearchCV(knn, param_grid, cv=10, scoring='accuracy', n_iter=10, random_state=5)
+    grid = RandomizedSearchCV(knn, param_grid, cv=10, scoring='accuracy', n_iter=10, random_state=5,n_jobs=-1)
     grid.fit(train_data, train_labels)
-    # TODO set n_jobs if parallel comp wanted
-    print('\nThe best hyper-parameter for {} -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
-          .format('logistic regression', 'C', grid.best_params_, grid.best_score_))
+    print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
+          .format('KNN', grid.best_params_, grid.best_score_))
 
     lr = grid.best_estimator_
     knn = KNeighborsClassifier(n_neighbors=10);
@@ -157,12 +151,16 @@ def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
     return dt
 
 def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
-    mnb = MultinomialNB();
-    mnb.fit(train_data, train_labels)
 
-    # TODO
-    # hyper-param tuning
-    # evaluate the logistic regression model
+    mnb = MultinomialNB()
+    alpha_range = np.geomspace(1e-3, 1, 50)
+    param_grid = dict(alpha=alpha_range)
+    grid = GridSearchCV(mnb, param_grid, cv=10, scoring='accuracy', n_jobs=-1)
+    grid.fit(train_data, train_labels)
+    print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
+          .format('MultinomialNB', grid.best_params_, grid.best_score_))
+
+    mnb.fit(train_data, train_labels)
     train_pred = mnb.predict(train_data)
     print('Multinomial Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = mnb.predict(test_data)
@@ -203,12 +201,11 @@ if __name__ == '__main__':
 
     #chosen models
     lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
-    #mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
-    #svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
+    svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
 
     #not good models
-    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-    #dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target,'tf-idf')
-
+    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    #dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
     #gnb too slow
-    #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target,'tf-idf')
+    #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target)
