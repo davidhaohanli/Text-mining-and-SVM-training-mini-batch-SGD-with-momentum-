@@ -103,8 +103,7 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
 
     SVM.fit(train_data, train_labels)
 
-    # TODO
-    # hyper-param tuning
+    # TODO hyper-param tuning
 
     # evaluate the logistic regression model
     train_pred = SVM.predict(train_data)
@@ -140,8 +139,7 @@ def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
     dt = DecisionTreeClassifier();
     dt.fit(train_data, train_labels)
 
-    # TODO
-    # hyper-param tuning
+    # TODO hyper-param tuning
     # evaluate the logistic regression model
     train_pred = dt.predict(train_data)
     print('Decision Tree train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
@@ -173,8 +171,7 @@ def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     gnb = GaussianNB();
     gnb.fit(train_data, train_labels)
 
-    # TODO
-    # hyper-param tuning
+    # TODO hyper-param tuning
     # evaluate the logistic regression model
     train_pred = gnb.predict(train_data)
     print('Gaussian Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
@@ -207,5 +204,6 @@ if __name__ == '__main__':
     #not good models
     knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
     #dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+
     #gnb too slow
     #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target)
