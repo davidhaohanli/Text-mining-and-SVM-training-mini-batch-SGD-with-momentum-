@@ -17,6 +17,7 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import f1_score as f1
 from sklearn.metrics import confusion_matrix as cm
+import pandas as pd
 
 def load_data():
     # import and filter data
@@ -73,9 +74,9 @@ def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extracti
     train_pred = bnb.predict(bow_train)
     print('BernoulliNB baseline train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = bnb.predict(bow_test)
-    print('BernoulliNB baseline test accuracy - {} = {}\n'.format(feature_extraction,(test_pred == test_labels).mean()))
-
-    return bnb
+    accuracy=(test_pred == test_labels).mean()
+    print('BernoulliNB baseline test accuracy - {} = {}\n'.format(feature_extraction,accuracy))
+    return bnb,accuracy
 
 def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
@@ -94,9 +95,10 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
     train_pred = lr.predict(train_data)
     print('Logistic Regression train accuracy - {} = {}\n'.format(feature_extraction, (train_pred == train_labels).mean()))
     test_pred = lr.predict(test_data)
-    print('Logistic Regression test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    accuracy=(test_pred == test_labels).mean()
+    print('Logistic Regression test accuracy - {} = {}\n'.format(feature_extraction, accuracy))
 
-    return lr
+    return lr,accuracy
 
 def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
@@ -119,9 +121,10 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     train_pred = SVM.predict(train_data)
     print('SVM train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = SVM.predict(test_data)
-    print('SVM test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    accuracy=(test_pred == test_labels).mean()
+    print('SVM test accuracy - {} = {}\n'.format(feature_extraction, accuracy))
 
-    return SVM
+    return SVM,accuracy
 
 def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
     knn = KNeighborsClassifier()
@@ -140,9 +143,10 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     train_pred = knn.predict(train_data)
     print('KNN train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = knn.predict(test_data)
-    print('KNN test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    accuracy=(test_pred == test_labels).mean()
+    print('KNN test accuracy - {} = {}\n'.format(feature_extraction,accuracy))
 
-    return knn
+    return knn,accuracy
 
 def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
@@ -172,9 +176,10 @@ def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     train_pred = mnb.predict(train_data)
     print('Multinomial Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = mnb.predict(test_data)
-    print('Multinomial Naive Bayes test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
+    accuracy=(test_pred == test_labels).mean()
+    print('Multinomial Naive Bayes test accuracy - {} = {}\n'.format(feature_extraction,accuracy))
 
-    return mnb
+    return mnb,accuracy
 
 def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
     #TODO too slow
@@ -194,26 +199,43 @@ def dnn(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF
     #TODO
     pass
 
-if __name__ == '__main__':
+def main():
+
     train_data, test_data = load_data()
-    #print (set(train_data.target))
+    acc={}
+
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
+    _,_ = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target,'bow')
 
-    bnb_model = bnb_baseline(train_bow, train_data.target, test_bow, test_data.target,'bow')
-
-    train_tfidf, test_tfidf = tf_idf_features(train_bow, test_bow)
-    #print (train_bow.toarray().shape)
-    #print (feature_names.shape)
-    bnb_model = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target)
+    #baseline models
+    train_tfidf,test_tfidf = tf_idf_features(train_bow, test_bow)
+    bnb_model,bnb_acc = bnb_baseline(train_tfidf, train_data.target, test_tfidf, test_data.target)
+    acc[bnb_acc]=[bnb_model,'BernoulliNB']
 
     #chosen models
-    lr_model = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
-    mnb_model = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
-    svm_model = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    lr_model,lr_acc = lr_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    mnb_model,mnb_acc = mnb_run(train_tfidf, train_data.target, test_tfidf, test_data.target)
+    svm_model,svm_acc = svm_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    acc[lr_acc]=[lr_model,'LogisticRegression']
+    acc[mnb_acc]=[mnb_model,'MultinomialNB']
+    acc[svm_acc]=[svm_model,'SVM']
 
     #not good models
-    knn_model = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    knn_model,knn_acc = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
+    acc[knn_acc]=[knn_model,'KNN']
     #dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
 
     #gnb too slow
     #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target)
+
+    bestAccuracy=min(acc,key=acc.get)
+    model=acc[bestAccuracy][0]
+    print ('\nThe best model is {}, and the corresponding accuracy is {} \n'.format(acc[bestAccuracy][1],bestAccuracy))
+    res = cm_f1_test(model, test_tfidf, test_data.target)
+    print(pd.DataFrame(res[0],index=test_data.target_names,columns=test_data.target_names))
+    print('Most confused 2 classes: {} and {}\n and their corresponding F1 scores: {}'. \
+          format(test_data.target_names[res[1][0][0]], test_data.target_names[res[1][0][1]], res[1][1]))
+
+
+if __name__ == '__main__':
+    main()
