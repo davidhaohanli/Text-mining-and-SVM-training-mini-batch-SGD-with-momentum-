@@ -15,6 +15,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import f1_score as f1
+from sklearn.metrics import confusion_matrix as cm
 
 def load_data():
     # import and filter data
@@ -42,6 +44,14 @@ def tf_idf_features(train_data, test_data):
     #feature_names = tf_idf_vectorize.get_feature_names()
     tf_idf_test = tf_idf_vectorize.transform(test_data)
     return tf_idf_train, tf_idf_test#, feature_names
+
+def cm_f1_test(model,test_data,test_labels):
+
+    test_pred=model.predict(test_data);
+    scores=f1(test_labels, test_pred, average=None)
+    argSort=scores.argsort()
+    scores=scores[argSort]
+    return cm(test_labels,test_pred),(argSort[:2],scores[:2])
 
 def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extraction='TF-IDF'):
     # training the baseline model
