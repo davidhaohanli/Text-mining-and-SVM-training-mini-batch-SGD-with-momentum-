@@ -26,9 +26,17 @@ def load_data():
 
     return newsgroups_train, newsgroups_test
 
+def doPCA(train_data,test_data):
+    from sklearn.decomposition import TruncatedSVD as PCA
+    pca=PCA(n_components=50000);
+    train_pca=pca.fit_transform(train_data);
+    test_pca=pca.transform(test_data);
+
+    return train_pca,test_pca
+
 def bow_features(train_data, test_data):
     # Bag-of-words representation
-    bow_vectorize = CountVectorizer()
+    bow_vectorize = CountVectorizer(stop_words='english')
     bow_train = bow_vectorize.fit_transform(train_data.data) #bag-of-word features for training data
     bow_test = bow_vectorize.transform(test_data.data)
     feature_names = bow_vectorize.get_feature_names() #converts feature index to the word it represents.
