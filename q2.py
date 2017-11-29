@@ -5,6 +5,32 @@ import matplotlib.pyplot as plt
 
 np.random.seed(1847)
 
+def load_data():
+    '''
+    Load MNIST data (4 and 9 only) and split into train and test
+    '''
+    mnist = fetch_mldata('MNIST original', data_home='./data')
+    label_4 = (mnist.target == 4)
+    label_9 = (mnist.target == 9)
+
+    data_4, targets_4 = mnist.data[label_4], np.ones(np.sum(label_4))
+    data_9, targets_9 = mnist.data[label_9], -np.ones(np.sum(label_9))
+
+    data = np.concatenate([data_4, data_9], 0)
+    data = data / 255.0
+    targets = np.concatenate([targets_4, targets_9], 0)
+
+    permuted = np.random.permutation(data.shape[0])
+    train_size = int(np.floor(data.shape[0] * 0.8))
+
+    train_data, train_targets = data[permuted[:train_size]], targets[permuted[:train_size]]
+    test_data, test_targets = data[permuted[train_size:]], targets[permuted[train_size:]]
+    print("Data Loaded")
+    print("Train size: {}".format(train_size))
+    print("Test size: {}".format(data.shape[0] - train_size))
+    print("-------------------------------")
+    return train_data, train_targets, test_data, test_targets
+
 class BatchSampler(object):
     '''
     A (very) simple wrapper to randomly sample batches without replacement.
@@ -43,7 +69,30 @@ class BatchSampler(object):
         indices = self.random_batch_indices(m)
         X_batch = np.take(self.data, indices, 0)
         y_batch = self.targets[indices]
-        return X_batch, y_batch  
+        return X_batch, y_batch
+
+def optimize_test_function(optimizer, w_init=10.0, steps=200):
+    '''
+    Optimize the simple quadratic test function and return the parameter history.
+    '''
+    def func(x):
+        return 0.01 * x * x
+
+    def func_grad(x):
+        return 0.02 * x
+
+    w = w_init
+    w_history = [w_init]
+
+    vel=0
+
+    for _ in range(steps):
+        w,vel=optimizer.update_params(w,func_grad(w),vel)
+        w_history.append(w)
+        # Optimize and update the history
+        pass
+
+    return w_history
 
 class GDOptimizer(object):
     '''
@@ -75,12 +124,12 @@ class SVM(object):
     def hinge_loss(self, X, y):
 
         actualLoss = 1-y*np.dot(X,self.w.reshape((-1,1)))
-        return (0.5 * (self.w[1:]**2)).sum() + self.c*np.where(actualLoss>0,actualLoss,0).mean(),actualLoss
+        return (0.5 * (self.w[1:]**2)).sum() + self.c*np.where(actualLoss>0,actualLoss,0).mean()
         # Implement hinge loss
 
-    def grad(self, X, y, actualLoss):
+    def grad(self, X, y):
 
-        return self.w[1:]+self.c*np.where(actualLoss==0,0,-y*X).mean(axis=0)
+        return self.w+self.c*np.where((y*np.dot(X,self.w.reshape((-1,1))))>=1,0,-y*X).mean(axis=0)
         # Compute (sub-)gradient of SVM objective
 
     def classify(self, X):
@@ -92,55 +141,6 @@ class SVM(object):
         # Classify points as +1 or -1
         return np.where(np.dot(X,self.w.reshape((-1,1)))>0,1,-1)
 
-def load_data():
-    '''
-    Load MNIST data (4 and 9 only) and split into train and test
-    '''
-    mnist = fetch_mldata('MNIST original', data_home='./data')
-    label_4 = (mnist.target == 4)
-    label_9 = (mnist.target == 9)
-
-    data_4, targets_4 = mnist.data[label_4], np.ones(np.sum(label_4))
-    data_9, targets_9 = mnist.data[label_9], -np.ones(np.sum(label_9))
-
-    data = np.concatenate([data_4, data_9], 0)
-    data = data / 255.0
-    targets = np.concatenate([targets_4, targets_9], 0)
-
-    permuted = np.random.permutation(data.shape[0])
-    train_size = int(np.floor(data.shape[0] * 0.8))
-
-    train_data, train_targets = data[permuted[:train_size]], targets[permuted[:train_size]]
-    test_data, test_targets = data[permuted[train_size:]], targets[permuted[train_size:]]
-    print("Data Loaded")
-    print("Train size: {}".format(train_size))
-    print("Test size: {}".format(data.shape[0] - train_size))
-    print("-------------------------------")
-    return train_data, train_targets, test_data, test_targets
-
-def optimize_test_function(optimizer, w_init=10.0, steps=200):
-    '''
-    Optimize the simple quadratic test function and return the parameter history.
-    '''
-    def func(x):
-        return 0.01 * x * x
-
-    def func_grad(x):
-        return 0.02 * x
-
-    w = w_init
-    w_history = [w_init]
-
-    vel=0
-
-    for _ in range(steps):
-        w,vel=optimizer.update_params(w,func_grad(w),vel)
-        w_history.append(w)
-        # Optimize and update the history
-        pass
-
-    return w_history
-
 def optimize_svm(train_data, train_targets, penalty, optimizer, batchsize, iters):
     '''
     Optimize the SVM with the given hyperparameters. Return the trained SVM.
@@ -150,7 +150,7 @@ def optimize_svm(train_data, train_targets, penalty, optimizer, batchsize, iters
     vel = np.zeros_like(svm.w)
     for _ in range(iters):
         batch_data,batch_target=batchSampler.get_batch()
-        grad=svm.grad(batch_data,batch_target,svm.hinge_loss(batch_data,batch_target))
+        grad=svm.grad(batch_data,batch_target)
         svm.w,vel=optimizer.update_params(svm.w,grad,vel)
     return svm
 
@@ -173,13 +173,24 @@ if __name__ == '__main__':
     train_data = np.concatenate((np.ones((train_data.shape[0],1)),train_data), axis=1)
     test_data = np.concatenate((np.ones((test_data.shape[0],1)), test_data), axis=1)
     optimizer = GDOptimizer(0.05)
-    svm = optimize_svm(train_data,train_targets,1.0,optimizer,100,500)
+    svm = optimize_svm(train_data,train_targets.reshape((-1,1)),1.0,optimizer,100,500)
     train_pred = svm.classify(train_data).reshape(-1)
     train_accuracy=np.equal(train_targets,train_pred).mean()
     test_pred = svm.classify(test_data).reshape(-1)
     test_accuracy = np.equal(test_targets, test_pred).mean()
-    print ('The train accuracy of model with beta = 0: {}'.format(train_accuracy))
+    print ('The train loss of model with beta = 0 : {}'.format(svm.hinge_loss(train_data,train_targets.reshape((-1,1)))))
+    print ('The test loss of model with beta = 0 : {}'.format(svm.hinge_loss(test_data,test_targets.reshape((-1,1)))))
+    print('The train accuracy of model with beta = 0 : {}'.format(train_accuracy))
+    print('The test accuracy of model with beta = 0 : {}\n\n'.format(test_accuracy))
 
-    #TODO 1. 4 prints 2. loss 3. 2nd model
+    optimizer = GDOptimizer(0.05,0.1)
+    svm = optimize_svm(train_data, train_targets.reshape((-1, 1)), 1.0, optimizer, 100, 500)
+    train_pred = svm.classify(train_data).reshape(-1)
+    train_accuracy = np.equal(train_targets, train_pred).mean()
+    test_pred = svm.classify(test_data).reshape(-1)
+    test_accuracy = np.equal(test_targets, test_pred).mean()
+    print('The train loss of model with beta = 0 : {}'.format(svm.hinge_loss(train_data, train_targets.reshape((-1, 1)))))
+    print('The test loss of model with beta = 0 : {}'.format(svm.hinge_loss(test_data, test_targets.reshape((-1, 1)))))
+    print('The train accuracy of model with beta = 0 : {}'.format(train_accuracy))
+    print('The test accuracy of model with beta = 0 : {}\n\n'.format(test_accuracy))
 
-    pass
