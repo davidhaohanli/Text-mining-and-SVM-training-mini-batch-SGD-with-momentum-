@@ -80,7 +80,6 @@ def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extracti
           .format('BernoulliNB',grid.best_params_,grid.best_score_))
 
     bnb=grid.best_estimator_
-    bnb.fit(bow_train, train_labels)
     #evaluate the baseline model
     train_pred = bnb.predict(bow_train)
     print('BernoulliNB baseline train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
@@ -101,7 +100,6 @@ def lr_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-
         .format('logistic regression', grid.best_params_, grid.best_score_))
 
     lr=grid.best_estimator_
-    lr.fit(train_data,train_labels)
 
     train_pred = lr.predict(train_data)
     print('Logistic Regression train accuracy - {} = {}\n'.format(feature_extraction, (train_pred == train_labels).mean()))
@@ -124,11 +122,6 @@ def svm_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
 
     SVM=grid.best_estimator_
 
-    SVM.fit(train_data, train_labels)
-
-    # TODO hyper-param tuning
-
-    # evaluate the logistic regression model
     train_pred = SVM.predict(train_data)
     print('SVM train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = SVM.predict(test_data)
@@ -147,9 +140,7 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
           .format('KNN', grid.best_params_, grid.best_score_))
 
-    lr = grid.best_estimator_
-    knn = KNeighborsClassifier(n_neighbors=10);
-    knn.fit(train_data, train_labels)
+    knn = grid.best_estimator_
 
     train_pred = knn.predict(train_data)
     print('KNN train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
@@ -169,7 +160,7 @@ def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     print('\nThe best hyper-parameter for -- {} is {}, the corresponding mean accuracy through 10 Fold test is {} \n' \
           .format('MultinomialNB', grid.best_params_, grid.best_score_))
 
-    mnb.fit(train_data, train_labels)
+    mnb = grid.best_estimator_
     train_pred = mnb.predict(train_data)
     print('Multinomial Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
     test_pred = mnb.predict(test_data)

@@ -68,20 +68,19 @@ class SVM(object):
     '''
     A Support Vector Machine
     '''
-
     def __init__(self, c, feature_count):
         self.c = c
         self.w = np.random.normal(0.0, 0.1, feature_count)
         
-    def hinge_loss(self, X, y, w):
+    def hinge_loss(self, X, y):
 
-        actualLoss = 1-y*np.dot(X,w.reshape((-1,1)))
-        return (0.5 * (w[1:]**2)).sum() + self.c*np.where(actualLoss>0,actualLoss,0).mean(),actualLoss
+        actualLoss = 1-y*np.dot(X,self.w.reshape((-1,1)))
+        return (0.5 * (self.w[1:]**2)).sum() + self.c*np.where(actualLoss>0,actualLoss,0).mean(),actualLoss
         # Implement hinge loss
 
-    def grad(self, X, y, w, actualLoss):
+    def grad(self, X, y, actualLoss):
 
-        return w+self.c*np.where(actualLoss==0,0,-y*X).mean(axis=0)
+        return self.w[1:]+self.c*np.where(actualLoss==0,0,-y*X).mean(axis=0)
         # Compute (sub-)gradient of SVM objective
 
     def classify(self, X):
@@ -91,7 +90,7 @@ class SVM(object):
         Returns the predicted class labels (shape (n,))
         '''
         # Classify points as +1 or -1
-        return None
+        return np.where(np.dot(X,self.w.reshape((-1,1)))>0,1,-1)
 
 def load_data():
     '''
@@ -148,10 +147,12 @@ def optimize_svm(train_data, train_targets, penalty, optimizer, batchsize, iters
     '''
     svm = SVM(penalty,train_data.shape[1])
     batchSampler = BatchSampler(train_data,train_targets,batchsize)
+    vel = np.zeros_like(svm.w)
     for _ in range(iters):
-
-
-
+        batch_data,batch_target=batchSampler.get_batch()
+        grad=svm.grad(batch_data,batch_target,svm.hinge_loss(batch_data,batch_target))
+        svm.w,vel=optimizer.update_params(svm.w,grad,vel)
+    return svm
 
 if __name__ == '__main__':
 
@@ -159,11 +160,26 @@ if __name__ == '__main__':
     w_zero = optimize_test_function(gd_zero)
     gd_pointNine = GDOptimizer(1.0,0.9)
     w_pointNine = optimize_test_function(gd_pointNine)
+
+    #plot
     plt.figure(figsize=(20, 5))
     plt.plot(w_zero, '.')
     plt.plot(w_pointNine, '.')
     plt.xlabel('iterations')
     plt.ylabel('w_val')
     plt.show()
+
+    train_data, train_targets, test_data, test_targets = load_data()
+    train_data = np.concatenate((np.ones((train_data.shape[0],1)),train_data), axis=1)
+    test_data = np.concatenate((np.ones((test_data.shape[0],1)), test_data), axis=1)
+    optimizer = GDOptimizer(0.05)
+    svm = optimize_svm(train_data,train_targets,1.0,optimizer,100,500)
+    train_pred = svm.classify(train_data).reshape(-1)
+    train_accuracy=np.equal(train_targets,train_pred).mean()
+    test_pred = svm.classify(test_data).reshape(-1)
+    test_accuracy = np.equal(test_targets, test_pred).mean()
+    print ('The train accuracy of model with beta = 0: {}'.format(train_accuracy))
+
+    #TODO 1. 4 prints 2. loss 3. 2nd model
 
     pass
