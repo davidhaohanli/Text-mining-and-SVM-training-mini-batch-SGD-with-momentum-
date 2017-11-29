@@ -73,24 +73,16 @@ class SVM(object):
         self.c = c
         self.w = np.random.normal(0.0, 0.1, feature_count)
         
-    def hinge_loss(self, X, y):
-        '''
-        Compute the hinge-loss for input data X (shape (n, m)) with target y (shape (n,)).
+    def hinge_loss(self, X, y, w):
 
-        Returns a length-n vector containing the hinge-loss per data point.
-        '''
+        actualLoss = 1-y*np.dot(X,w.reshape((-1,1)))
+        return (0.5 * (w[1:]**2)).sum() + self.c*np.where(actualLoss>0,actualLoss,0).mean(),actualLoss
         # Implement hinge loss
-        return None
 
-    def grad(self, X, y):
-        '''
-        Compute the gradient of the SVM objective for input data X (shape (n, m))
-        with target y (shape (n,))
+    def grad(self, X, y, w, actualLoss):
 
-        Returns the gradient with respect to the SVM parameters (shape (m,)).
-        '''
+        return w+self.c*np.where(actualLoss==0,0,-y*X).mean(axis=0)
         # Compute (sub-)gradient of SVM objective
-        return None
 
     def classify(self, X):
         '''
@@ -154,7 +146,12 @@ def optimize_svm(train_data, train_targets, penalty, optimizer, batchsize, iters
     '''
     Optimize the SVM with the given hyperparameters. Return the trained SVM.
     '''
-    return None
+    svm = SVM(penalty,train_data.shape[1])
+    batchSampler = BatchSampler(train_data,train_targets,batchsize)
+    for _ in range(iters):
+
+
+
 
 if __name__ == '__main__':
 
@@ -162,5 +159,11 @@ if __name__ == '__main__':
     w_zero = optimize_test_function(gd_zero)
     gd_pointNine = GDOptimizer(1.0,0.9)
     w_pointNine = optimize_test_function(gd_pointNine)
+    plt.figure(figsize=(20, 5))
+    plt.plot(w_zero, '.')
+    plt.plot(w_pointNine, '.')
+    plt.xlabel('iterations')
+    plt.ylabel('w_val')
+    plt.show()
 
     pass

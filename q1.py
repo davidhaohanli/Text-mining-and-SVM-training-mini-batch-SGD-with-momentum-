@@ -1,6 +1,9 @@
 '''
-Question 1 Skeleton Code
+Question 1 Full Code
 
+with hyper-parameters tuning
+
+It may take more than 40 min to run the main function
 
 '''
 import numpy as np
@@ -28,7 +31,7 @@ def load_data():
 
 def doPCA(train_data,test_data):
     from sklearn.decomposition import TruncatedSVD as PCA
-    pca=PCA(n_components=50000);
+    pca=PCA(n_components=5000);
     train_pca=pca.fit_transform(train_data);
     test_pca=pca.transform(test_data);
 
@@ -156,20 +159,6 @@ def knn_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
 
     return knn,accuracy
 
-def dt_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
-
-    dt = DecisionTreeClassifier();
-    dt.fit(train_data, train_labels)
-
-    # TODO hyper-param tuning
-    # evaluate the logistic regression model
-    train_pred = dt.predict(train_data)
-    print('Decision Tree train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
-    test_pred = dt.predict(test_data)
-    print('Decision Tree test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
-
-    return dt
-
 def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
 
     mnb = MultinomialNB()
@@ -188,24 +177,6 @@ def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
     print('Multinomial Naive Bayes test accuracy - {} = {}\n'.format(feature_extraction,accuracy))
 
     return mnb,accuracy
-
-def gnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
-    #TODO too slow
-    gnb = GaussianNB();
-    gnb.fit(train_data, train_labels)
-
-    # TODO hyper-param tuning
-    # evaluate the logistic regression model
-    train_pred = gnb.predict(train_data)
-    print('Gaussian Naive Bayes train accuracy - {} = {}\n'.format(feature_extraction,(train_pred == train_labels).mean()))
-    test_pred = gnb.predict(test_data)
-    print('Gaussian Naive Bayes test accuracy - {} = {}\n'.format(feature_extraction, (test_pred == test_labels).mean()))
-
-    return gnb
-
-def dnn(train_data,train_labels,test_data,test_labels,feature_extraction='TF-IDF'):
-    #TODO
-    pass
 
 def main():
 
@@ -231,10 +202,6 @@ def main():
     #not good models
     knn_model,knn_acc = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
     acc[knn_acc]=[knn_model,'KNN']
-    #dt_model = dt_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
-
-    #gnb too slow
-    #gnb_model = gnb_run(train_dense,train_data.target,test_dense,test_data.target)
 
     bestAccuracy=min(acc,key=acc.get)
     model=acc[bestAccuracy][0]
@@ -246,4 +213,13 @@ def main():
 
 
 if __name__ == '__main__':
+    print ('''
+
+        Notice:
+
+        Q1 with hyper-parameter tuning (PCA transformation excluded)
+
+        This version may take more than 40 min to run
+
+        ''')
     main()
