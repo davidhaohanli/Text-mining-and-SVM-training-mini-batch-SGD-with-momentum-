@@ -31,6 +31,24 @@ def load_data():
     print("-------------------------------")
     return train_data, train_targets, test_data, test_targets
 
+def visualize(X,features=np.array(['Just One Dimension']),timerSet=False):
+    fig=plt.figure(figsize=(20, 5))
+    feature_count = features.shape[0]
+    # i: index
+    for i in range(feature_count):
+        plt.subplot(1, 5, i + 1)
+        plt.imshow(X[i].reshape((28,28)),cmap='gray')
+        #plt.xlabel(features[i])
+        # plt.ylabel('target y')
+        # TODO: Plot feature i against y
+
+    plt.tight_layout()
+    if timerSet:
+        timer = fig.canvas.new_timer(interval=3000)  # creating a timer object and setting an interval of 3000 milliseconds
+        timer.add_callback(plt.close)
+        timer.start();
+    plt.show()
+
 class BatchSampler(object):
     '''
     A (very) simple wrapper to randomly sample batches without replacement.
@@ -124,7 +142,7 @@ class SVM(object):
     def hinge_loss(self, X, y):
 
         actualLoss = 1-y*np.dot(X,self.w.reshape((-1,1)))
-        return (0.5 * (self.w[1:]**2)).sum() + self.c*np.where(actualLoss>0,actualLoss,0).mean()
+        return 0.5*((self.w[1:]**2).sum()) + self.c*np.where(actualLoss>0,actualLoss,0).mean()
         # Implement hinge loss
 
     def grad(self, X, y):
@@ -169,11 +187,14 @@ if __name__ == '__main__':
     plt.ylabel('w_val')
     plt.show()
 
+    w_s=[]
+
     train_data, train_targets, test_data, test_targets = load_data()
     train_data = np.concatenate((np.ones((train_data.shape[0],1)),train_data), axis=1)
     test_data = np.concatenate((np.ones((test_data.shape[0],1)), test_data), axis=1)
     optimizer = GDOptimizer(0.05)
     svm = optimize_svm(train_data,train_targets.reshape((-1,1)),1.0,optimizer,100,500)
+    w_s.append(svm.w[1:])
     train_pred = svm.classify(train_data).reshape(-1)
     train_accuracy=np.equal(train_targets,train_pred).mean()
     test_pred = svm.classify(test_data).reshape(-1)
@@ -185,6 +206,7 @@ if __name__ == '__main__':
 
     optimizer = GDOptimizer(0.05,0.1)
     svm = optimize_svm(train_data, train_targets.reshape((-1, 1)), 1.0, optimizer, 100, 500)
+    w_s.append(svm.w[1:])
     train_pred = svm.classify(train_data).reshape(-1)
     train_accuracy = np.equal(train_targets, train_pred).mean()
     test_pred = svm.classify(test_data).reshape(-1)
@@ -193,4 +215,6 @@ if __name__ == '__main__':
     print('The test loss of model with beta = 0 : {}'.format(svm.hinge_loss(test_data, test_targets.reshape((-1, 1)))))
     print('The train accuracy of model with beta = 0 : {}'.format(train_accuracy))
     print('The test accuracy of model with beta = 0 : {}\n\n'.format(test_accuracy))
+
+    visualize(w_s,features=np.array([0.0,0.1]))
 
