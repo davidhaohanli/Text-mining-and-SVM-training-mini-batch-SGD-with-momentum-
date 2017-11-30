@@ -21,6 +21,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import f1_score as f1
 from sklearn.metrics import confusion_matrix as cm
 import pandas as pd
+import operator
 
 def load_data():
     # import and filter data
@@ -172,6 +173,7 @@ def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
 def main():
 
     train_data, test_data = load_data()
+    #train_data.data, train_data.target, test_data.data,test_data.target = train_data.data[:100], train_data.target[:100], test_data.data[:100],test_data.target[:100]
     acc={}
 
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
@@ -194,14 +196,13 @@ def main():
     knn_model,knn_acc = knn_run(train_tfidf,train_data.target,test_tfidf,test_data.target)
     acc[knn_acc]=[knn_model,'KNN']
 
-    bestAccuracy=min(acc,key=acc.get)
+    bestAccuracy=sorted(acc.items(), key=lambda d: d[0])[-1][0]
     model=acc[bestAccuracy][0]
     print ('\nThe best model is {}, and the corresponding accuracy is {} \n'.format(acc[bestAccuracy][1],bestAccuracy))
     res = cm_f1_test(model, test_tfidf, test_data.target)
     print(pd.DataFrame(res[0],index=test_data.target_names,columns=test_data.target_names))
     print('Most confused 2 classes: {} and {}\n and their corresponding F1 scores: {}'. \
           format(test_data.target_names[res[1][0][0]], test_data.target_names[res[1][0][1]], res[1][1]))
-
 
 if __name__ == '__main__':
     print ('''

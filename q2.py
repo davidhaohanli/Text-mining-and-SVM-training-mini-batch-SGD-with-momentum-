@@ -108,7 +108,6 @@ def optimize_test_function(optimizer, w_init=10.0, steps=200):
         w,vel=optimizer.update_params(w,func_grad(w),vel)
         w_history.append(w)
         # Optimize and update the history
-        pass
 
     return w_history
 
