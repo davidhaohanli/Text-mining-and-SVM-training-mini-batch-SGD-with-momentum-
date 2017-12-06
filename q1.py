@@ -12,16 +12,12 @@ from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 from sklearn.naive_bayes import BernoulliNB
 from sklearn.linear_model import LogisticRegression
 from sklearn import svm
-from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import f1_score as f1
-from sklearn.metrics import confusion_matrix as cm
 import pandas as pd
-import operator
 
 def load_data():
     # import and filter data
@@ -57,6 +53,12 @@ def tf_idf_features(train_data, test_data):
     #feature_names = tf_idf_vectorize.get_feature_names()
     tf_idf_test = tf_idf_vectorize.transform(test_data)
     return tf_idf_train, tf_idf_test#, feature_names
+
+def cm(test_labels,test_pred):
+    CM = np.zeros((20,20));
+    for i in range(test_labels.shape[0]):
+        CM[int(test_pred[i])][int(test_labels[i])]+=1
+    return CM
 
 def cm_f1_test(model,test_data,test_labels):
 
