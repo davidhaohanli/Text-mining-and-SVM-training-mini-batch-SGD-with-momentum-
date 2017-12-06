@@ -16,7 +16,6 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import f1_score as f1
 import pandas as pd
 
 def load_data():
@@ -63,10 +62,13 @@ def cm(test_labels,test_pred):
 def cm_f1_test(model,test_data,test_labels):
 
     test_pred=model.predict(test_data);
-    scores=f1(test_labels, test_pred, average=None)
-    argSort=scores.argsort()
-    scores=scores[argSort]
-    return cm(test_labels,test_pred),(argSort[:2],scores[:2])
+    CM = cm(test_labels,test_pred)
+    two_confused_mat = CM+CM.T
+    np.fill_diagonal(two_confused_mat,0)
+    flatten = two_confused_mat.flatten()
+    argSort = flatten.argsort()
+    argTwoD = (argSort[-1]%20,argSort[-1]//20)
+    return CM,(argTwoD,two_confused_mat[argTwoD])
 
 def bnb_baseline(bow_train, train_labels, bow_test, test_labels,feature_extraction='TF-IDF'):
     # training the baseline model
@@ -203,7 +205,7 @@ def main():
     print ('\nThe best model is {}, and the corresponding accuracy is {} \n'.format(acc[bestAccuracy][1],bestAccuracy))
     res = cm_f1_test(model, test_tfidf, test_data.target)
     print(pd.DataFrame(res[0],index=test_data.target_names,columns=test_data.target_names))
-    print('Most confused 2 classes: {} and {}\n and their corresponding F1 scores: {}'. \
+    print('Most confused 2 classes: {} and {}\n and their corresponding sum of false labels: {}'. \
           format(test_data.target_names[res[1][0][0]], test_data.target_names[res[1][0][1]], res[1][1]))
 
 if __name__ == '__main__':
