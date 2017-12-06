@@ -210,10 +210,10 @@ if __name__ == '__main__':
     train_accuracy = np.equal(train_targets, train_pred).mean()
     test_pred = svm.classify(test_data).reshape(-1)
     test_accuracy = np.equal(test_targets, test_pred).mean()
-    print('The train loss of model with beta = 0 : {}'.format(svm.hinge_loss(train_data, train_targets.reshape((-1, 1)))))
-    print('The test loss of model with beta = 0 : {}'.format(svm.hinge_loss(test_data, test_targets.reshape((-1, 1)))))
-    print('The train accuracy of model with beta = 0 : {}'.format(train_accuracy))
-    print('The test accuracy of model with beta = 0 : {}\n\n'.format(test_accuracy))
+    print('The train loss of model with beta = 0.1 : {}'.format(svm.hinge_loss(train_data, train_targets.reshape((-1, 1)))))
+    print('The test loss of model with beta = 0.1 : {}'.format(svm.hinge_loss(test_data, test_targets.reshape((-1, 1)))))
+    print('The train accuracy of model with beta = 0.1 : {}'.format(train_accuracy))
+    print('The test accuracy of model with beta = 0.1 : {}\n\n'.format(test_accuracy))
 
     visualize(w_s,features=np.array([0.0,0.1]))
 
