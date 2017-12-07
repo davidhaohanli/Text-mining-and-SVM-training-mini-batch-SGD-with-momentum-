@@ -208,14 +208,49 @@ def main():
     print('Most confused 2 classes: {} and {}\n and their corresponding sum of false labels: {}'. \
           format(test_data.target_names[res[1][0][0]], test_data.target_names[res[1][0][1]], res[1][1]))
 
+def model_run(model,train_data,train_labels,test_data,test_labels,modelName):
+
+    model.fit(train_data, train_labels)
+    train_pred = model.predict(train_data)
+    print('{} train accuracy = {}\n'.format(modelName, (train_pred == train_labels).mean()))
+    test_pred = model.predict(test_data)
+    accuracy = (test_pred == test_labels).mean()
+    print('{} test accuracy = {}\n'.format(modelName, accuracy))
+
+    return accuracy
+
+def main_best_param():
+    train_data, test_data = load_data()
+    #train_data.data, train_data.target, test_data.data,test_data.target = train_data.data[:100], train_data.target[:100], test_data.data[:100],test_data.target[:100]
+    train_bow, test_bow, feature_names = bow_features(train_data, test_data)
+    train_tfidf, test_tfidf = tf_idf_features(train_bow, test_bow)
+    acc={}
+    models={'BernoulliNB':BernoulliNB(alpha=1.0000000000000001e-05),'LogisticRegression':LogisticRegression(C=2.9000000000000004),\
+            'MultinomialNB':MultinomialNB(alpha = 0.022229964825261943),'SVM':svm.SVC(kernel='linear',C=1.4100000000000001)}
+    for name,model in models.items():
+        accuracy=model_run(model,train_tfidf,train_data.target,test_tfidf,test_data.target,name)
+        acc[accuracy] = [model, name]
+
+    bestAccuracy = sorted(acc.items(), key=lambda d: d[0])[-1][0]
+    model = acc[bestAccuracy][0]
+    print('\nThe best model is {}, and the corresponding accuracy is {} \n'.format(acc[bestAccuracy][1], bestAccuracy))
+    res = cm_f1_test(model, test_tfidf, test_data.target)
+    print(pd.DataFrame(res[0], index=test_data.target_names, columns=test_data.target_names))
+    print('Most confused 2 classes: {} and {}\n and their corresponding sum of false labels: {}'. \
+          format(test_data.target_names[res[1][0][0]], test_data.target_names[res[1][0][1]], res[1][1]))
+
 if __name__ == '__main__':
     print ('''
 
         Notice:
 
-        Q1 with hyper-parameter tuning (PCA transformation excluded)
+        Running default: main_best_param()
 
-        This version may take more than 40 min to run
+        If you want to run the full code with hyper-parameter tuning (PCA transformation excluded)
+
+        change it to main()
+
+        Please be aware that this version may take more than 40 min to run on CPU
 
         ''')
-    main()
+    main_best_param()
