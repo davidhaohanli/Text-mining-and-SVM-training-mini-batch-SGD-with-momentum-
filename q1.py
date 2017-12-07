@@ -217,7 +217,7 @@ def model_run(model,train_data,train_labels,test_data,test_labels,modelName):
 
     model.fit(train_data, train_labels)
     train_pred = model.predict(train_data)
-    print('{} train loss = {}\n'.format(modelName, 1-(train_pred == train_labels).mean()))
+    print('\n{} train loss = {}\n'.format(modelName, 1-(train_pred == train_labels).mean()))
     test_pred = model.predict(test_data)
     accuracy = (test_pred == test_labels).mean()
     print('{} test loss = {}\n'.format(modelName, 1-accuracy))
@@ -259,7 +259,7 @@ if __name__ == '__main__':
 
         You can change it to main()
 
-        Please be aware that this version may take more than 40 min to run on CPU
+        Please be aware that main() version may take more than 40 min to run on CPU
 
         ''')
     main_best_param()
