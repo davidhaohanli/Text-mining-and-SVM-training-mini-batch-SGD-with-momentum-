@@ -179,7 +179,10 @@ def mnb_run(train_data,train_labels,test_data,test_labels,feature_extraction='TF
 def main():
 
     train_data, test_data = load_data()
+
+    # testing skeleton with truncated data
     #train_data.data, train_data.target, test_data.data,test_data.target = train_data.data[:100], train_data.target[:100], test_data.data[:100],test_data.target[:100]
+
     acc={}
 
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
@@ -214,16 +217,20 @@ def model_run(model,train_data,train_labels,test_data,test_labels,modelName):
 
     model.fit(train_data, train_labels)
     train_pred = model.predict(train_data)
-    print('{} train accuracy = {}\n'.format(modelName, (train_pred == train_labels).mean()))
+    print('{} train loss = {}\n'.format(modelName, 1-(train_pred == train_labels).mean()))
     test_pred = model.predict(test_data)
     accuracy = (test_pred == test_labels).mean()
-    print('{} test accuracy = {}\n'.format(modelName, accuracy))
+    print('{} test loss = {}\n'.format(modelName, 1-accuracy))
 
     return accuracy
 
 def main_best_param():
     train_data, test_data = load_data()
+
+    #testing skeleton with truncated data
     #train_data.data, train_data.target, test_data.data,test_data.target = train_data.data[:100], train_data.target[:100], test_data.data[:100],test_data.target[:100]
+
+
     train_bow, test_bow, feature_names = bow_features(train_data, test_data)
     train_tfidf, test_tfidf = tf_idf_features(train_bow, test_bow)
     acc={}
