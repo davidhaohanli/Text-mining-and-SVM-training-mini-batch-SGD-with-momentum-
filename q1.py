@@ -248,7 +248,7 @@ if __name__ == '__main__':
 
         If you want to run the full code with hyper-parameter tuning (PCA transformation excluded)
 
-        change it to main()
+        You can change it to main()
 
         Please be aware that this version may take more than 40 min to run on CPU
 
