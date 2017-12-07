@@ -1,9 +1,11 @@
 '''
 Question 1 Full Code
 
-with hyper-parameters tuning
+main_best_param() version
 
-It may take more than 40 min to run the main function
+main() with hyper-parameters tuning
+
+may take more than 40 min to run the main function
 
 '''
 import numpy as np
